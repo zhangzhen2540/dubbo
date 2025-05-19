@@ -14,27 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.dubbo.common.ssl;
+package org.apache.dubbo.common.store;
 
-import org.apache.dubbo.common.URL;
-import org.apache.dubbo.common.extension.ExtensionScope;
-import org.apache.dubbo.common.extension.SPI;
-
-import java.net.SocketAddress;
-
-@SPI(scope = ExtensionScope.FRAMEWORK)
-public interface CertProvider {
-    boolean isSupport(URL address);
-
-    default boolean isSupport(URL address, SocketAddress remoteAddress) {
-        return isSupport(address);
-    }
-
-    ProviderCert getProviderConnectionConfig(URL localAddress);
-
-    default ProviderCert getProviderConnectionConfig(URL localAddress, SocketAddress remoteAddress) {
-        return getProviderConnectionConfig(localAddress);
-    }
-
-    Cert getConsumerConnectionConfig(URL remoteAddress);
+public interface DataStoreUpdateListener {
+    void onUpdate(String componentName, String key, Object value);
 }
